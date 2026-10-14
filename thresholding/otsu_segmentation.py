@@ -29,9 +29,9 @@ def process_otsu_clean(image_path, output_dir, C0=0.6, alpha_A0=1.2):
         if area <= 3:  # Hapus noise mikro
             cv2.drawContours(clean_binary, [c], -1, 0, -1)
             continue
+        
         circularity = (4 * np.pi * area) / (perimeter ** 2) if perimeter > 0 else 0
         is_adhesive = (area >= A0) and (circularity < C0)
-        
         if is_adhesive:
             cv2.drawContours(clean_binary, [c], -1, 0, -1)
     output_path = output_dir / image_path.name
